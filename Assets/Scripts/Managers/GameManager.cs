@@ -1,4 +1,5 @@
 using System.Collections; // para Corrutinas
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +18,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Gameplay Settings")]
     [SerializeField] private int _objectivesToWin = 3;
+
+    public GameLogic Logic { get; private set; }
+
     private int _objectivesCompleted = 0;
 
     private void Awake()
@@ -31,6 +35,7 @@ public class GameManager : MonoBehaviour
         // opcional: 
         // DontDestroyOnLoad(gameObject); 
         // si necesitas que persista entre escenas
+        Logic = new GameLogic(_objectivesToWin);
     }
 
     // suscripción a eventos
@@ -55,10 +60,10 @@ public class GameManager : MonoBehaviour
     {
         if (_currentState != GameState.Playing) return;
 
-        _objectivesCompleted++;
-        Debug.Log($"Objetivo completado. Progreso: {_objectivesCompleted}/{_objectivesToWin}");
+        Logic.CompleteObjective();
+        Debug.Log($"Objetivo completado. Progreso: {Logic.ObjectivesCompleted}/{Logic.ObjectivesToWin}");
 
-        if (_objectivesCompleted >= _objectivesToWin)
+        if (Logic.IsVictoryConditionMet)
         {
             ChangeState(GameState.Victory);
         }
