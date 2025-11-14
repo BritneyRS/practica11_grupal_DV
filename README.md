@@ -50,7 +50,3 @@ El parámetro que más impacto tuvo en hacer que la IA se sintiera “viva” fu
 - Permitió que el enemigo reaccionara de forma más natural, con un equilibrio entre agresividad y pasividad.  
 - La diferencia entre `detectionRadius` y `loseSightRadius` generó transiciones más creíbles, como si la IA realmente buscara o perdiera de vista al jugador.
 
----
-
-## 🌐 Repositorio  
-🔗 https://github.com/BritneyRS/practica11_grupal_DV
