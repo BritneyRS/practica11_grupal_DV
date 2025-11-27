@@ -21,7 +21,10 @@ public class GameManager : MonoBehaviour
 
     public GameLogic Logic { get; private set; }
 
+    // 🔵 Aquí ocultamos el warning CS0414
+    #pragma warning disable 0414
     private int _objectivesCompleted = 0;
+    #pragma warning restore 0414
 
     private void Awake()
     {
@@ -32,9 +35,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
-        // opcional: 
-        // DontDestroyOnLoad(gameObject); 
-        // si necesitas que persista entre escenas
+
+        // Inicializar lógica del juego
         Logic = new GameLogic(_objectivesToWin);
     }
 
@@ -85,7 +87,6 @@ public class GameManager : MonoBehaviour
         // 2: muestra un panel de victoria en la UI
         Debug.Log("mostrando UI de Victoria...");
         
-        // suponiendo que UIManager tiene una referencia a este panel
         if (UIManager.Instance != null)
         {
             UIManager.Instance.ShowVictoryPanel();
@@ -98,7 +99,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.ChangeState(UIManager.Instance.MainMenuState);
 
         Debug.Log("Volviendo al Menú Principal...");
-        SceneManager.LoadScene("MainMenu"); // Si tienes esta escena
+        SceneManager.LoadScene("MainMenu"); 
     }
 
     public void ChangeState(GameState newState)
@@ -111,13 +112,13 @@ public class GameManager : MonoBehaviour
         switch (_currentState)
         {
             case GameState.Playing:
-                // logica para cuando empieza el juego
                 break;
+
             case GameState.Victory:
                 StartCoroutine(VictorySequence());
                 break;
+
             case GameState.Loss:
-                // logica para cuando se pierde
                 break;
         }
     }
